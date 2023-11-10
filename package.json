@@ -6,14 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "graphql:codegen": "graphql-codegen --config .graphqlrc.yml",
+    "graphql:codegen:watch": "graphql-codegen --config .graphqlrc.yml --watch"
   },
   "dependencies": {
+    "@apollo/client": "3.8.7",
+    "graphql": "16.8.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.11.7",
+    "@graphql-codegen/gql-tag-operations-preset": "^1.5.5",
+    "@graphql-codegen/introspection": "2.2.1",
+    "@graphql-codegen/typed-document-node": "^2.3.3",
+    "@graphql-codegen/typescript": "2.7.3",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^2.2.3",
+    "@graphql-codegen/typescript-document-nodes": "2.3.3",
+    "@graphql-codegen/typescript-operations": "2.5.3",
+    "@graphql-codegen/typescript-react-apollo": "3.3.3",
     "@types/node": "^18.7.13",
     "@types/react": "^18.0.17",
     "eslint": "8.22.0",
