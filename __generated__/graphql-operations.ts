@@ -143,18 +143,17 @@ export type ProductRating = Contribution & Node & Timestamps & Votable & {
   __typename?: 'ProductRating';
   comments: ProductRatingCommentConnection;
   cons?: Maybe<Array<Scalars['String']>>;
+  createdAt: Scalars['DateTime'];
   creator: User;
   creatorIsVerifiedBuyer: Scalars['Boolean'];
   id: Scalars['ID'];
-  insertDate: Scalars['DateTime'];
-  lastActivityDate: Scalars['DateTime'];
   product: Product;
   pros?: Maybe<Array<Scalars['String']>>;
   ratingScore: Scalars['Int'];
   text?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
   userVote?: Maybe<Vote>;
-  votes: Array<Vote>;
   votesSummary: VotesSummary;
 };
 
@@ -168,14 +167,13 @@ export type ProductRatingCommentsArgs = {
 
 export type ProductRatingComment = Contribution & Node & Timestamps & Votable & {
   __typename?: 'ProductRatingComment';
+  createdAt: Scalars['DateTime'];
   creator: User;
   id: Scalars['ID'];
-  insertDate: Scalars['DateTime'];
-  lastActivityDate: Scalars['DateTime'];
   rating: ProductRating;
   text: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
   userVote?: Maybe<Vote>;
-  votes: Array<Vote>;
   votesSummary: VotesSummary;
 };
 
@@ -312,8 +310,8 @@ export type QueryUsersArgs = {
 };
 
 export type Timestamps = {
-  insertDate: Scalars['DateTime'];
-  lastActivityDate: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type User = Node & {
@@ -394,16 +392,15 @@ export type UserUpdatePayload = {
 
 export type Votable = {
   userVote?: Maybe<Vote>;
-  votes: Array<Vote>;
   votesSummary: VotesSummary;
 };
 
 export type Vote = Timestamps & {
   __typename?: 'Vote';
+  createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  insertDate: Scalars['DateTime'];
-  lastActivityDate: Scalars['DateTime'];
   type: VoteType;
+  updatedAt: Scalars['DateTime'];
   user: User;
 };
 
@@ -415,11 +412,22 @@ export enum VoteType {
 
 export type VotesSummary = {
   __typename?: 'VotesSummary';
-  abusiveVoteCount: Scalars['Int'];
-  downVoteCount: Scalars['Int'];
-  upVoteCount: Scalars['Int'];
-  voteScore: Scalars['Int'];
+  /** All cumulative AbusiveVotes */
+  countAbusive: Scalars['Int'];
+  /** All cumulative DownVotes */
+  countDown: Scalars['Int'];
+  /** All cumulative UpVotes */
+  countUp: Scalars['Int'];
+  /** Score is determined as UpVote - DownVote */
+  score: Scalars['Int'];
 };
+
+export type GetProductDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetProductDetailsQuery = { __typename?: 'Query', product?: { __typename?: 'Product', id: string, description: string } | null };
 
 export type ProductLink_ProductFragment = { __typename?: 'Product', name: string, id: string };
 
@@ -435,9 +443,10 @@ export type GetProductQueryVariables = Exact<{
 }>;
 
 
-export type GetProductQuery = { __typename?: 'Query', product?: { __typename?: 'Product', id: string, name: string, description: string, price: number } | null };
+export type GetProductQuery = { __typename?: 'Query', product?: { __typename?: 'Product', id: string, name: string, price: number } | null };
 
 export const UseProductUrl_ProductFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"useProductUrl_Product"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<UseProductUrl_ProductFragment, unknown>;
-export const ProductLink_ProductFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductLink_Product"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"useProductUrl_Product"}}]}},...UseProductUrl_ProductFragmentDoc.definitions]} as unknown as DocumentNode<ProductLink_ProductFragment, unknown>;
-export const GetProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductLink_Product"}}]}}]}}]}}]}},...ProductLink_ProductFragmentDoc.definitions]} as unknown as DocumentNode<GetProductsQuery, GetProductsQueryVariables>;
-export const GetProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProduct"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"price"}}]}}]}}]} as unknown as DocumentNode<GetProductQuery, GetProductQueryVariables>;
+export const ProductLink_ProductFragmentDoc = {"kind":"Document", "definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductLink_Product"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"useProductUrl_Product"}}]}},...UseProductUrl_ProductFragmentDoc.definitions]} as unknown as DocumentNode<ProductLink_ProductFragment, unknown>;
+export const GetProductDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProductDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetProductDetailsQuery, GetProductDetailsQueryVariables>;
+export const GetProductsDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"10"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductLink_Product"}}]}}]}}]}}]}},...ProductLink_ProductFragmentDoc.definitions]} as unknown as DocumentNode<GetProductsQuery, GetProductsQueryVariables>;
+export const GetProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProduct"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"}}]}}]}}]} as unknown as DocumentNode<GetProductQuery, GetProductQueryVariables>;

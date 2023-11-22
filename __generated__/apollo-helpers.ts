@@ -60,34 +60,32 @@ export type ProductEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductRatingKeySpecifier = ('comments' | 'cons' | 'creator' | 'creatorIsVerifiedBuyer' | 'id' | 'insertDate' | 'lastActivityDate' | 'product' | 'pros' | 'ratingScore' | 'text' | 'title' | 'userVote' | 'votes' | 'votesSummary' | ProductRatingKeySpecifier)[];
+export type ProductRatingKeySpecifier = ('comments' | 'cons' | 'createdAt' | 'creator' | 'creatorIsVerifiedBuyer' | 'id' | 'product' | 'pros' | 'ratingScore' | 'text' | 'title' | 'updatedAt' | 'userVote' | 'votesSummary' | ProductRatingKeySpecifier)[];
 export type ProductRatingFieldPolicy = {
 	comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	cons?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creator?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorIsVerifiedBuyer?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	lastActivityDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	product?: FieldPolicy<any> | FieldReadFunction<any>,
 	pros?: FieldPolicy<any> | FieldReadFunction<any>,
 	ratingScore?: FieldPolicy<any> | FieldReadFunction<any>,
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	userVote?: FieldPolicy<any> | FieldReadFunction<any>,
-	votes?: FieldPolicy<any> | FieldReadFunction<any>,
 	votesSummary?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type ProductRatingCommentKeySpecifier = ('creator' | 'id' | 'insertDate' | 'lastActivityDate' | 'rating' | 'text' | 'userVote' | 'votes' | 'votesSummary' | ProductRatingCommentKeySpecifier)[];
+export type ProductRatingCommentKeySpecifier = ('createdAt' | 'creator' | 'id' | 'rating' | 'text' | 'updatedAt' | 'userVote' | 'votesSummary' | ProductRatingCommentKeySpecifier)[];
 export type ProductRatingCommentFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creator?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	lastActivityDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	rating?: FieldPolicy<any> | FieldReadFunction<any>,
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	userVote?: FieldPolicy<any> | FieldReadFunction<any>,
-	votes?: FieldPolicy<any> | FieldReadFunction<any>,
 	votesSummary?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type ProductRatingCommentConnectionKeySpecifier = ('edges' | 'pageInfo' | ProductRatingCommentConnectionKeySpecifier)[];
@@ -134,10 +132,10 @@ export type QueryFieldPolicy = {
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	users?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TimestampsKeySpecifier = ('insertDate' | 'lastActivityDate' | TimestampsKeySpecifier)[];
+export type TimestampsKeySpecifier = ('createdAt' | 'updatedAt' | TimestampsKeySpecifier)[];
 export type TimestampsFieldPolicy = {
-	insertDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	lastActivityDate?: FieldPolicy<any> | FieldReadFunction<any>
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UserKeySpecifier = ('email' | 'height' | 'id' | 'productRatingComments' | 'productRatings' | 'username' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
@@ -173,26 +171,25 @@ export type UserUpdatePayloadFieldPolicy = {
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	userErrors?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VotableKeySpecifier = ('userVote' | 'votes' | 'votesSummary' | VotableKeySpecifier)[];
+export type VotableKeySpecifier = ('userVote' | 'votesSummary' | VotableKeySpecifier)[];
 export type VotableFieldPolicy = {
 	userVote?: FieldPolicy<any> | FieldReadFunction<any>,
-	votes?: FieldPolicy<any> | FieldReadFunction<any>,
 	votesSummary?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VoteKeySpecifier = ('id' | 'insertDate' | 'lastActivityDate' | 'type' | 'user' | VoteKeySpecifier)[];
+export type VoteKeySpecifier = ('createdAt' | 'id' | 'type' | 'updatedAt' | 'user' | VoteKeySpecifier)[];
 export type VoteFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	insertDate?: FieldPolicy<any> | FieldReadFunction<any>,
-	lastActivityDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	type?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type VotesSummaryKeySpecifier = ('abusiveVoteCount' | 'downVoteCount' | 'upVoteCount' | 'voteScore' | VotesSummaryKeySpecifier)[];
+export type VotesSummaryKeySpecifier = ('countAbusive' | 'countDown' | 'countUp' | 'score' | VotesSummaryKeySpecifier)[];
 export type VotesSummaryFieldPolicy = {
-	abusiveVoteCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	downVoteCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	upVoteCount?: FieldPolicy<any> | FieldReadFunction<any>,
-	voteScore?: FieldPolicy<any> | FieldReadFunction<any>
+	countAbusive?: FieldPolicy<any> | FieldReadFunction<any>,
+	countDown?: FieldPolicy<any> | FieldReadFunction<any>,
+	countUp?: FieldPolicy<any> | FieldReadFunction<any>,
+	score?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StrictTypedTypePolicies = {
 	Connection?: Omit<TypePolicy, "fields" | "keyFields"> & {

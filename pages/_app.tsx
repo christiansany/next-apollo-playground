@@ -1,15 +1,17 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
-import { client } from "../src/apollo-client";
-import { Suspense } from "react";
+import { getApolloClient } from "../src/apollo-client";
+import { useMemo } from "react";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const client = useMemo(() => {
+    return getApolloClient();
+  }, []);
+
   return (
     <ApolloProvider client={client}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Component {...pageProps} />
-      </Suspense>
+      <Component {...pageProps} />
     </ApolloProvider>
   );
 }

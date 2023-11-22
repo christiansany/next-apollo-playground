@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import Head from "next/head";
 import { gql } from "__generated__/gql";
-import { ProductLink } from "./components/ProductLink";
+import { ProductLink } from "../components/ProductLink";
 
-const GetProductsDocument = gql(`
+const GetProductsDocument = gql(/* GraphQL */ `
   query GetProducts {
     products(first: 10) {
       edges {
@@ -17,9 +17,7 @@ const GetProductsDocument = gql(`
 `);
 
 export default function ProductList() {
-  const { data, loading, error } = useQuery(GetProductsDocument);
-
-  console.log({ data });
+  const { data, error } = useSuspenseQuery(GetProductsDocument);
 
   return (
     <div>

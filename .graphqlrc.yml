@@ -1,7 +1,7 @@
 overwrite: true
 schema: "http://localhost:4000"
 documents:
-  - "./pages/**/*.(tsx|ts)"
+  - "./**/*.(tsx|ts)"
 generates:
   __generated__/graphql-operations.ts:
     plugins:
